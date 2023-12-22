@@ -41,4 +41,17 @@ def is_pythagorean(triangle: List) -> bool:
 
 
 if __name__ == '__main__':
-    is_pythagorean()
+
+    triangle = []
+    count = 1
+    while count < 4:
+        try:
+
+            user_input = input(f'Please enter length of the triangle leg ({count} of 3): ')
+            triangle.append(float(user_input))
+            count += 1
+        except Exception as exp:
+            print(f'User input: "{user_input}" --> {exp.__class__.__qualname__}: {exp}!')
+            continue
+    result = is_pythagorean(triangle)
+    print(result)
