@@ -1,12 +1,27 @@
 import logging
-from pprint import pprint
+
+from random import randint
 from typing import List
-from xmlrpc.client import boolean
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s -- %(levelname)s -- %(message)s')
 
 
-def play(zombies: List, plants: List, ) -> boolean:
+def play(zombies: List, plants: List, ) -> bool:
+
+    """
+    The play function takes two lists of integers as arguments.
+    The first list represents the strength of each plant, and the second list represents the strength of each zombie.
+    Each element in a list is an integer representing that creature's power level.
+    If a plant has more power than a zombie, it will destroy that zombie (and vice versa).
+    If they are equal in power, both creatures will be destroyed.
+    The function should return True if all zombies are destroyed and False otherwise.
+
+    :param zombies: List: Pass in a list of zombie strength values
+    :param plants: List: Pass the list of plants to the function
+    :param : Pass the list of plants and zombies to the function
+    :return: A boolean value
+    :doc-author: Trelent
+    """
     try:
         if plants and zombies:
             diff = abs(len(plants) - len(zombies))
@@ -43,6 +58,21 @@ def play(zombies: List, plants: List, ) -> boolean:
 
 if __name__ == '__main__':
 
-    while True:
-        user_input = input('Please enter plants (1-9): ')
-    play()
+    plants = []
+    zombies = []
+    count = 1
+    num_plants = randint(1, 10)
+    num_zombies = randint(1, 10)
+    for zombie_soldier in range(num_zombies + 1):
+        new_zombie = randint(1, 10)
+        zombies.append(new_zombie)
+    while count < num_plants + 1:
+        try:
+            user_input = input(f"Please enter strength of Plant's soldier ({count} of {num_plants}): ")
+            plants.append(float(user_input))
+            count += 1
+        except Exception as exp:
+            print(f'User input: "{user_input}" --> {exp.__class__.__qualname__}: {exp}!')
+            continue
+    result = play(zombies=zombies, plants=plants)
+    print(result)
